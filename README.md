@@ -1,2 +1,2 @@
 # Exel-to-Json-
-Convert Exel to JSON sing JavaScript
+Convert Exel to JSON using JavaScript

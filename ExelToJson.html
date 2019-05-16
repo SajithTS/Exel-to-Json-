@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Excel to JSON Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <!-- <input type="file" id="myFile">
+    <br>
+    <button onclick="myFunction()">Try it</button> -->
+
+    <input type="file" />
+    <div id="result"></div>
+    <script>
+        document.querySelector('input').addEventListener('change', function () {
+            var reader = new FileReader();
+            var a = reader.onload = function () {
+                var arrayBuffer = this.result;
+                var data = new Uint8Array(arrayBuffer);
+                var arr = new Array();
+                for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+                var bstr = arr.join("");
+
+                /* Call XLSX */
+                var workbook = XLSX.read(bstr, {
+                    type: "binary"
+                });
+
+                /* DO SOMETHING WITH workbook HERE */
+                var first_sheet_name = workbook.SheetNames[0];
+                /* Get worksheet */
+                var worksheet = workbook.Sheets[first_sheet_name];
+                console.log(XLSX.utils.sheet_to_json(worksheet, {
+                    raw: true
+                }));
+            }
+            reader.readAsArrayBuffer(this.files[0]);
+        }, false);
+
+
+
+    </script>
+</body>
+
+</html>
